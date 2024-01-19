@@ -5,6 +5,7 @@ import {
   IsUrl,
   MaxLength,
 } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreatePotfolioEntryDto {
   @IsString()
@@ -15,13 +16,10 @@ export class CreatePotfolioEntryDto {
   @MaxLength(1000, { message: 'Description is too long' })
   description: string;
 
-  @IsUrl({}, { message: 'Invalid imageURL. Must be a URL' })
-  imageURL: string;
+  @ApiProperty({ type: 'string', format: 'binary' })
+  imageFile: any;
 
   @IsOptional()
   @IsUrl({}, { message: 'Invalid customerLink. Must be a URL' })
-  customerLink: string;
-
-  @IsBoolean()
-  visible: boolean;
+  customerURL: string;
 }

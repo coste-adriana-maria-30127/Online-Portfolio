@@ -4,6 +4,10 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PortfolioEntryModule } from './portfolio/portfolio-entry.module';
 import { PortfolioEntry } from './typeorm/entities/PortfolioEntry';
+import { ImageEntry } from './typeorm/entities/ImageEntry';
+import { MulterModule } from '@nestjs/platform-express';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -14,10 +18,17 @@ import { PortfolioEntry } from './typeorm/entities/PortfolioEntry';
       username: 'admin',
       password: 'Admin123456',
       database: 'online_portfolio',
-      entities: [PortfolioEntry],
+      entities: [PortfolioEntry, ImageEntry],
       synchronize: true,
     }),
+    // TypeOrmModule.forFeature([ImageEntry]),
     PortfolioEntryModule,
+    MulterModule.register({
+      dest: './files',
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'files'),
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

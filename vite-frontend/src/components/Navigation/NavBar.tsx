@@ -1,19 +1,25 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-scroll";
 
-const NavBar = () => {
-  const [nav, setNav] = useState(false);
+interface LinkItem {
+  id: number;
+  link: string;
+}
 
-  const links = [
+const NavBar: React.FC = () => {
+  const [nav, setNav] = useState<boolean>(false);
+
+  const links: LinkItem[] = [
     { id: 1, link: "home" },
     { id: 2, link: "about" },
     { id: 3, link: "portfolio" },
     { id: 4, link: "experience" },
     { id: 5, link: "contact" },
   ];
+
   return (
-    <div className="flex justify-between items-center w-full h-20 px-4 text-white bg-black fixed ">
+    <div className="z-10 flex justify-between items-center w-full h-20 px-4 text-white bg-black fixed ">
       <div>
         <h1 className="text-5xl font-signature ml-2"> Adriana</h1>
       </div>

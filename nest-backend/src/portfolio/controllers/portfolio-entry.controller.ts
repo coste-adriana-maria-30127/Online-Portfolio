@@ -1,6 +1,15 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
+import { Express } from 'express';
 import { CreatePotfolioEntryDto } from 'src/portfolio/dtos/CreatePortfolioEntry.dto';
 import { PortfolioEntryService } from '../services/portfolio-entry.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('portfolio-entry')
 export class PortfolioEntryController {
@@ -14,10 +23,24 @@ export class PortfolioEntryController {
     return portfolioEntries;
   }
 
+  @Post('file')
+  @UseInterceptors(FileInterceptor('imageFile')) // 'imageFile' is the name of the file field in the form
+  uploadFile(@UploadedFile() imageFile: Express.Multer.File, o) {
+    console.log('Uploaded file:', imageFile);
+  }
+
   @Post()
-  createPotfolioEntry(@Body() createPotfolioEntryDto: CreatePotfolioEntryDto) {
+  @UseInterceptors(FileInterceptor('imageFile')) // 'imageFile' is the name of the file field in the form
+  createPotfolioEntry(
+    @UploadedFile() imageFile: Express.Multer.File,
+    @Body() createPotfolioEntryDto: CreatePotfolioEntryDto,
+  ) {
+    console.log('createPotfolioEntryDto', createPotfolioEntryDto);
+    console.log('Uploaded file 1:', imageFile);
+
     return this.portfolioEntryService.createPotfolioEntry(
       createPotfolioEntryDto,
+      imageFile,
     );
   }
 }

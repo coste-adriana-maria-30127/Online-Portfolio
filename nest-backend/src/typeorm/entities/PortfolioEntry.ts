@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { ImageEntry } from './ImageEntry';
 
 @Entity({ name: 'portfolio_entries' })
 export class PortfolioEntry {
@@ -11,8 +12,8 @@ export class PortfolioEntry {
   @Column({ type: 'text' })
   description: string;
 
-  @Column()
-  imageURL: string;
+  @OneToMany(() => ImageEntry, (image) => image.portfolioEntry)
+  images: ImageEntry[];
 
   @Column({ nullable: true })
   customerLink: string;

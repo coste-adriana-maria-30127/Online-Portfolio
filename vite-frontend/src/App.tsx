@@ -1,12 +1,12 @@
 import NavBar from "./components/Navigation/NavBar";
-import SocialLinks from "./components/Navigation/SocialLinks";
-import About from "./components/Sections/About";
-import Contact from "./components/Sections/Contact";
-import Experience from "./components/Sections/Experience";
 import Home from "./components/Sections/Home";
+import About from "./components/Sections/About";
 import Portfolio from "./components/Sections/Portfolio";
+import Experience from "./components/Sections/Experience";
+import Contact from "./components/Sections/Contact";
+import SocialLinks from "./components/Navigation/SocialLinks";
 
-const App = () => {
+function App() {
   return (
     <>
       <NavBar />
@@ -18,6 +18,6 @@ const App = () => {
       <SocialLinks />
     </>
   );
-};
+}
 
 export default App;
